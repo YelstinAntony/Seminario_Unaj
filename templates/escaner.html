@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control de Acceso - Puerta</title>
+    <script src="https://unpkg.com/html5-qrcode"></script>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f4f6f9; margin: 0; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .container { width: 100%; max-width: 450px; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-align: center; }
+        #reader { width: 100%; max-width: 300px; margin: 15px auto; border-radius: 8px; overflow: hidden; }
+        button { background: #2e7d32; color: white; border: none; padding: 12px 20px; font-size: 16px; border-radius: 6px; cursor: pointer; width: 100%; margin-bottom: 10px; }
+        button:hover { background: #1b5e20; }
+        #resultado { margin: 15px 0; font-size: 16px; font-weight: bold; padding: 12px; border-radius: 6px; white-space: pre-line; }
+        .link-admin { display: block; margin-top: 20px; color: #0277bd; text-decoration: none; font-size: 14px; }
+        .link-admin:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>🚪 Control de Acceso (Puerta)</h2>
+        
+        <button onclick="iniciarCamara()">📷 Activar Cámara para Escanear</button>
+        <div id="reader"></div>
+        <div id="resultado"></div>
+
+        <a class="link-admin" href="/admin" target="_blank">⚙️ Ir al Panel de Administración (Reportes y Certificados)</a>
+    </div>
+
+    <script>
+        let html5QrCode = null;
+
+        function iniciarCamara() {
+            if (!html5QrCode) html5QrCode = new Html5Qrcode("reader");
+            html5QrCode.start(
+                { facingMode: "environment" },
+                { fps: 10, qrbox: { width: 250, height: 250 } },
+                (decodedText) => {
+                    html5QrCode.stop().then(() => validarAsistencia(decodedText));
+                },
+                (err) => {}
+            );
+        }
+
+        function validarAsistencia(codigo) {
+            fetch('/api/verificar', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ codigo: codigo })
+            })
+            .then(res => res.json())
+            .then(res => {
+                let div = document.getElementById('resultado');
+                
+                if (res.success) {
+                    div.style.background = "#e8f5e9";
+                    div.style.color = "#2e7d32";
+                } else if (res.tipo === "duplicado") {
+                    div.style.background = "#fff3e0";
+                    div.style.color = "#e65100";
+                } else {
+                    div.style.background = "#ffebee";
+                    div.style.color = "#c62828";
+                }
+                
+                div.innerText = res.message;
+                
+                // Reiniciar cámara automáticamente en 3 segundos para el siguiente asistente
+                setTimeout(() => {
+                    div.innerText = "";
+                    div.style.background = "transparent";
+                    iniciarCamara();
+                }, 3000);
+            });
+        }
+    </script>
+</body>
+</html>

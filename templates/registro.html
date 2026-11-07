@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscripción Seminario - UNAJ</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: linear-gradient(135deg, #0d47a1 0%, #1565c0 100%); 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+            margin: 0; 
+            padding: 20px;
+        }
+        .card { 
+            background: white; 
+            padding: 30px; 
+            border-radius: 14px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25); 
+            width: 100%; 
+            max-width: 500px; 
+            box-sizing: border-box;
+        }
+        .header-logo {
+            background: #0d47a1;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        h2 { margin: 0 0 10px 0; font-size: 19px; line-height: 1.4; }
+        .event-info { font-size: 13px; background: rgba(255,255,255,0.15); padding: 10px; border-radius: 6px; margin-top: 10px; text-align: left; line-height: 1.5; }
+        
+        .input-group { text-align: left; margin-bottom: 14px; }
+        label { font-size: 12px; font-weight: bold; color: #333; margin-left: 2px; }
+        input, select { 
+            width: 100%; 
+            padding: 11px; 
+            margin-top: 4px; 
+            border: 1px solid #cfd8dc; 
+            border-radius: 6px; 
+            box-sizing: border-box; 
+            font-size: 14px; 
+            transition: all 0.3s ease;
+        }
+        input:focus, select:focus { 
+            border-color: #0d47a1; 
+            outline: none; 
+            box-shadow: 0 0 6px rgba(13, 71, 161, 0.3); 
+        }
+        
+        button { 
+            background: #0d47a1; 
+            color: white; 
+            border: none; 
+            padding: 13px; 
+            width: 100%; 
+            border-radius: 6px; 
+            font-size: 15px; 
+            font-weight: bold;
+            cursor: pointer; 
+            margin-top: 10px; 
+            transition: background 0.3s;
+        }
+        button:hover { background: #1565c0; }
+
+        .btn-buscar {
+            background: #ff8f00;
+            font-size: 13px;
+            padding: 9px;
+            margin-bottom: 20px;
+        }
+        .btn-buscar:hover { background: #e65100; }
+        
+        #msg { margin-top: 15px; font-weight: bold; font-size: 14px; text-align: center; }
+        #qr-container { margin-top: 20px; text-align: center; }
+        #qr-img { width: 180px; height: 180px; border: 1px solid #ddd; border-radius: 8px; padding: 5px; background: #fff; margin-bottom: 10px; }
+        .btn-download { background: #2e7d32; text-decoration: none; display: inline-block; padding: 10px; border-radius: 6px; color: white; font-size: 14px; width: 100%; box-sizing: border-box; font-weight: bold; text-align: center; }
+        .btn-download:hover { background: #1b5e20; }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="header-logo">
+            <h2>HOSTIGAMIENTO SEXUAL Y LA PREVENCIÓN DE ACTOS DE CORRUPCIÓN</h2>
+            <div class="event-info">
+                📍 <b>Lugar:</b> Auditorio Magno de la UNAJ<br>
+                📅 <b>Fecha:</b> 13 de noviembre del 2026<br>
+                ⏰ <b>Hora:</b> 11:00 a.m. - 12:30 p.m.
+            </div>
+        </div>
+
+        <!-- Botón para consultar o corregir datos existentes -->
+        <button class="btn-buscar" onclick="consultarDatos()">🔍 ¿Ya te registraste? Consulta o corrige tus datos aquí</button>
+        
+        <div class="input-group">
+            <label>Apellidos y Nombres *</label>
+            <input type="text" id="nombre" placeholder="Ej. Juan Pérez Ramos">
+        </div>
+
+        <div class="input-group">
+            <label>N° de DNI / Código Universitario *</label>
+            <input type="text" id="dni" placeholder="Ej. 74624449 o 2023...">
+        </div>
+
+        <div class="input-group">
+            <label>Correo Electrónico *</label>
+            <input type="email" id="email" placeholder="2023107039.est@unaj.edu.pe">
+        </div>
+
+        <div class="input-group">
+            <label>Escuela Profesional / Categoría *</label>
+            <select id="escuela" onchange="verificarSemestre()">
+                <option value="" disabled selected>Seleccione su escuela o categoría</option>
+                <option value="Escuela Profesional de Gestión Pública y Desarrollo Social">Escuela Profesional de Gestión Pública y Desarrollo Social</option>
+                <option value="Escuela Profesional de Economía">Escuela Profesional de Economía</option>
+                <option value="Escuela Profesional de Administracion y Emprendimiento Empresarial">Escuela Profesional de Administracion y Emprendimiento Empresarial</option>
+                <option value="Escuela Profesional de Ingenieria Ambiental y Forestal">Escuela Profesional de Ingenieria Ambiental y Forestal</option>
+                <option value="Escuela Profesional de Ingeniería en Industrias Alimentarias">Escuela Profesional de Ingeniería en Industrias Alimentarias</option>
+                <option value="Escuela Profesional de Ingenieria en Energias Renovables">Escuela Profesional de Ingenieria en Energias Renovables</option>
+                <option value="Escuela Profesional de Ingenieria Textil y de Confecciones">Escuela Profesional de Ingenieria Textil y de Confecciones</option>
+                <option value="Escuela Profesional de Ingenieria Software y Sistemas">Escuela Profesional de Ingeniería de Software y Sistemas</option>
+                <option value="Escuela Profesional de Ingenieria Mecatrónica">Escuela Profesional de Ingeniería Mecatrónica</option>
+                <option value="Escuela Profesional de Ingenieria Industrial">Escuela Profesional de Ingeniería Industrial</option>
+                <option value="Administrativos">Administrativos</option>
+                <option value="Docentes">Docentes</option>
+                <option value="Docentes Tutores">Docentes Tutores</option>
+            </select>
+        </div>
+
+        <div id="semestre-container" class="input-group hidden">
+            <label>Si eres estudiante. ¿En qué semestre estás?</label>
+            <select id="semestre">
+                <option value="" disabled selected>Selecciona tu semestre</option>
+                <option value="I Semestre">I Semestre</option>
+                <option value="II Semestre">II Semestre</option>
+                <option value="III Semestre">III Semestre</option>
+                <option value="IV Semestre">IV Semestre</option>
+                <option value="V Semestre">V Semestre</option>
+                <option value="VI Semestre">VI Semestre</option>
+                <option value="VII Semestre">VII Semestre</option>
+                <option value="VIII Semestre">VIII Semestre</option>
+                <option value="IX Semestre">IX Semestre</option>
+                <option value="X Semestre">X Semestre</option>
+            </select>
+        </div>
+
+        <button onclick="registrar()">Inscribirme / Actualizar Datos</button>
+        <div id="msg"></div>
+        <div id="qr-container"></div>
+    </div>
+
+    <script>
+        function verificarSemestre() {
+            let escuela = document.getElementById('escuela').value;
+            let semestreContainer = document.getElementById('semestre-container');
+            if (escuela.includes("Escuela Profesional")) {
+                semestreContainer.classList.remove('hidden');
+            } else {
+                semestreContainer.classList.add('hidden');
+            }
+        }
+
+        // Función para que el estudiante busque sus datos previos por DNI
+        function consultarDatos() {
+            let dni = prompt("Ingresa tu N° de DNI o Código Universitario para buscar tu registro:");
+            if (!dni) return;
+
+            fetch('/api/buscar', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ dni: dni })
+            })
+            .then(res => res.json())
+            .then(res => {
+                let msg = document.getElementById('msg');
+                let qrContainer = document.getElementById('qr-container');
+
+                if (res.success) {
+                    // Autocompletar los campos con lo que ya estaba registrado
+                    document.getElementById('nombre').value = res.usuario.nombre;
+                    document.getElementById('dni').value = res.usuario.dni;
+                    document.getElementById('email').value = res.usuario.email;
+                    document.getElementById('escuela').value = res.usuario.escuela;
+                    
+                    verificarSemestre();
+                    if (res.usuario.semestre && res.usuario.semestre !== "N/A") {
+                        document.getElementById('semestre').value = res.usuario.semestre;
+                    }
+
+                    msg.style.color = "#0277bd";
+                    msg.innerText = "🔍 ¡Datos encontrados! Modifica lo que necesites y presiona el botón para actualizar.";
+
+                    // Mostrar su QR actual
+                    qrContainer.innerHTML = `
+                        <p style="font-size: 13px; color: #555; margin-bottom: 5px; font-weight: bold;">Tu Código QR Actual:</p>
+                        <img id="qr-img" src="${res.usuario.qr_url}" alt="Código QR"><br>
+                        <a class="btn-download" href="${res.usuario.qr_url}" download="QR_Seminario_UNAJ.png">📥 Descargar Imagen QR</a>
+                    `;
+                } else {
+                    msg.style.color = "red";
+                    msg.innerText = res.message;
+                    qrContainer.innerHTML = "";
+                }
+            });
+        }
+
+        function registrar() {
+            let escuelaSelect = document.getElementById('escuela');
+            let escuelaVal = escuelaSelect.value;
+            let semestreVal = "N/A";
+
+            if (escuelaVal.includes("Escuela Profesional")) {
+                semestreVal = document.getElementById('semestre').value;
+            }
+
+            let msg = document.getElementById('msg');
+            let qrContainer = document.getElementById('qr-container');
+
+            if (escuelaVal.includes("Escuela Profesional") && (!semestreVal || semestreVal === "N/A")) {
+                msg.style.color = "red";
+                msg.innerText = "Por favor selecciona tu semestre.";
+                return;
+            }
+
+            let data = {
+                nombre: document.getElementById('nombre').value,
+                dni: document.getElementById('dni').value,
+                email: document.getElementById('email').value,
+                escuela: escuelaVal,
+                semestre: semestreVal
+            };
+
+            msg.style.color = "#0277bd";
+            msg.innerText = "⏳ Procesando tu inscripción...";
+
+            fetch('/api/registrar', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+            .then(res => res.json())
+            .then(res => {
+                if (res.success) {
+                    msg.style.color = "green";
+                    msg.innerText = res.message;
+
+                    qrContainer.innerHTML = `
+                        <p style="font-size: 13px; color: #555; margin-bottom: 5px; font-weight: bold;">Tu Código QR de Acceso:</p>
+                        <img id="qr-img" src="${res.qr_url}" alt="Código QR"><br>
+                        <a class="btn-download" href="${res.qr_url}" download="QR_Seminario_UNAJ.png">📥 Descargar Imagen QR</a>
+                    `;
+                } else {
+                    msg.style.color = "red";
+                    msg.innerText = res.message;
+                    qrContainer.innerHTML = "";
+                }
+            })
+            .catch(() => {
+                msg.style.color = "red";
+                msg.innerText = "❌ Error de conexión con el servidor. Inténtalo nuevamente.";
+            });
+        }
+    </script>
+</body>
+</html>

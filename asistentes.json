@@ -1,0 +1,24 @@
+[
+    {
+        "dni": "74624449",
+        "nombre": "Yelstin Antony Huichi Calderon",
+        "email": "2023107039.est@unaj.edu.pe",
+        "asistio": true,
+        "hora_ingreso": "15:43:32",
+        "escuela": "Escuela Profesional de Ingenieria Software y Sistemas",
+        "semestre": "I Semestre",
+        "qr_url": "/static/qr_74624449.png",
+        "certificado_url": "/static/certificado_74624449.pdf"
+    },
+    {
+        "dni": "70567414",
+        "nombre": "Ruth Cely Balboa Bonifacio ",
+        "email": "ruthcelybalboa@gmail.com",
+        "escuela": "Escuela Profesional de Econom\u00eda",
+        "semestre": "I Semestre",
+        "asistio": true,
+        "hora_ingreso": "15:58:59",
+        "qr_url": "/static/qr_70567414.png",
+        "certificado_url": "/static/certificado_70567414.pdf"
+    }
+]
